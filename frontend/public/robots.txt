@@ -1,0 +1,11 @@
+# CodeSentinel Public Crawl Policy
+User-agent: *
+Allow: /
+Allow: /docs
+Allow: /privacy
+Allow: /terms
+Disallow: /app/
+Disallow: /api/
+Disallow: /webhooks/
+
+Sitemap: https://codesentinel.local/sitemap.xml

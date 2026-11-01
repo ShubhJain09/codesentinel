@@ -1,0 +1,22 @@
+rules:
+  - id: codesentinel.python.dynamic-eval
+    languages: [python]
+    severity: ERROR
+    message: Dynamic eval() can execute input as Python code; avoid interpreting untrusted strings.
+    pattern: eval(...)
+    metadata: { cwe: CWE-95, category: security }
+  - id: codesentinel.python.shell-true
+    languages: [python]
+    severity: ERROR
+    message: subprocess with shell=True may allow command injection when arguments are untrusted.
+    patterns:
+      - pattern-either:
+          - pattern: subprocess.run(..., shell=True, ...)
+          - pattern: subprocess.Popen(..., shell=True, ...)
+    metadata: { cwe: CWE-78, category: security }
+  - id: codesentinel.python.insecure-pickle
+    languages: [python]
+    severity: WARNING
+    message: pickle.loads() on untrusted data can execute arbitrary code during deserialization.
+    pattern: pickle.loads(...)
+    metadata: { cwe: CWE-502, category: security }

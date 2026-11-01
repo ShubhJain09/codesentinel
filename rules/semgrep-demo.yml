@@ -1,0 +1,9 @@
+rules:
+  - id: codesentinel.demo.python-eval
+    languages: [python]
+    severity: ERROR
+    message: Avoid eval() on potentially untrusted input; it can execute arbitrary Python expressions.
+    pattern: eval(...)
+    metadata:
+      cwe: 'CWE-95'
+      category: security

@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-crimson: #F43F5E;
+    --color-violet: #6366F1;
+    --color-cyan: #06B6D4;
+    --color-emerald: #10B981;
+    --color-workspace-bg: #0D1017;
+    --color-editorial-bg: #F7F4EE;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  ::selection {
+    background-color: rgba(99, 102, 241, 0.25);
+    color: #F2F6FC;
+  }
+
+  /* Custom high-precision developer scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(138, 151, 181, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(138, 151, 181, 0.45);
+  }
+}
+
+@layer components {
+  /* ── Developer Workspace UI Building Blocks ────────────────────────────── */
+  .workspace-canvas {
+    @apply bg-graphite-900 text-graphite-100 min-h-screen selection:bg-brand-violet/30 selection:text-white;
+  }
+
+  .workspace-panel {
+    @apply bg-graphite-850 border border-graphite-700/80 rounded-xl shadow-graphite-sm;
+  }
+
+  .workspace-card {
+    @apply bg-graphite-900 border border-graphite-700/60 rounded-xl shadow-graphite-sm transition-all;
+  }
+
+  .workspace-card:hover {
+    @apply border-graphite-600;
+  }
+
+  /* ── Action Buttons ─────────────────────────────────────────────────────── */
+  .btn-brand-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-brand-violet hover:bg-violet-600 active:scale-[0.98]
+           text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-violet/50;
+  }
+
+  .btn-brand-secondary {
+    @apply inline-flex items-center justify-center gap-2 bg-graphite-800 hover:bg-graphite-750 active:scale-[0.98]
+           text-graphite-200 hover:text-white border border-graphite-700 text-xs font-medium px-4 py-2 rounded-lg
+           transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-brand-danger {
+    @apply inline-flex items-center justify-center gap-2 bg-brand-crimson/15 hover:bg-brand-crimson/25 active:scale-[0.98]
+           text-brand-crimson border border-brand-crimson/30 text-xs font-medium px-4 py-2 rounded-lg
+           transition-all duration-150;
+  }
+
+  .btn-brand-ghost {
+    @apply inline-flex items-center justify-center gap-2 text-graphite-400 hover:text-graphite-100 hover:bg-graphite-800/80
+           text-xs font-medium px-3 py-1.5 rounded-lg transition-all duration-150;
+  }
+
+  /* ── Form Inputs ────────────────────────────────────────────────────────── */
+  .workspace-input {
+    @apply w-full bg-graphite-950 border border-graphite-700 rounded-lg px-3.5 py-2 text-xs
+           text-graphite-100 placeholder:text-graphite-500 font-mono transition-all duration-150
+           focus:outline-none focus:border-brand-violet focus:ring-1 focus:ring-brand-violet/40;
+  }
+
+  /* ── Badges ─────────────────────────────────────────────────────────────── */
+  .badge-tag {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider;
+  }
+
+  .badge-crit {
+    @apply badge-tag bg-brand-crimson/15 text-rose-400 border border-brand-crimson/30;
+  }
+
+  .badge-high-alert {
+    @apply badge-tag bg-brand-amber/15 text-amber-300 border border-brand-amber/30;
+  }
+
+  .badge-info-alert {
+    @apply badge-tag bg-brand-cyan/15 text-cyan-300 border border-brand-cyan/30;
+  }
+
+  .badge-success {
+    @apply badge-tag bg-brand-emerald/15 text-emerald-300 border border-brand-emerald/30;
+  }
+
+  .badge-engine-tag {
+    @apply badge-tag bg-brand-violet/15 text-indigo-300 border border-brand-violet/30;
+  }
+
+  /* ── Code Blocks ────────────────────────────────────────────────────────── */
+  .code-viewer {
+    @apply font-mono text-xs bg-graphite-950 border border-graphite-700/80 rounded-xl overflow-x-auto p-4 leading-relaxed;
+  }
+
+  /* ── Legacy Compat Classes (Ensures zero breakage) ──────────────────────── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-150 text-xs py-2 px-3.5;
+  }
+  .btn-primary {
+    @apply btn-brand-primary;
+  }
+  .btn-secondary {
+    @apply btn-brand-secondary;
+  }
+  .btn-ghost {
+    @apply btn-brand-ghost;
+  }
+  .btn-sm {
+    @apply text-xs py-1.5 px-3;
+  }
+  .btn-lg {
+    @apply text-sm py-2.5 px-5 font-semibold;
+  }
+  .card {
+    @apply workspace-card p-5;
+  }
+  .eyebrow {
+    @apply text-[10px] font-mono uppercase tracking-widest text-graphite-400 font-bold mb-1;
+  }
+  .input {
+    @apply workspace-input;
+  }
+  .badge {
+    @apply badge-tag;
+  }
+  .badge-critical {
+    @apply badge-crit;
+  }
+  .badge-high {
+    @apply badge-high-alert;
+  }
+  .badge-low {
+    @apply badge-success;
+  }
+
+  /* ── Agndex Faithful Dashboard Design System ────────────────────────────── */
+  .agndex-meta-chip {
+    @apply flex h-11 items-center justify-center gap-2 rounded-lg border border-white/10 bg-[#202227] px-4 text-sm text-zinc-300;
+  }
+
+  .agndex-card {
+    @apply rounded-xl bg-[#202227] border border-white/5 hover:bg-[#262930] transition-colors;
+  }
+
+  .agndex-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-[#D946EF] hover:bg-[#C026D3] active:scale-[0.98] text-white text-sm font-medium transition-colors shadow-sm;
+  }
+
+  .agndex-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg border border-white/10 hover:bg-white/5 active:scale-[0.98] text-zinc-200 text-sm font-normal transition-colors;
+  }
+
+  .agndex-btn-destructive {
+    @apply inline-flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-normal transition-colors;
+  }
+
+  .agndex-input {
+    @apply flex h-12 w-full items-center gap-2 rounded-xl border border-white/10 bg-[#202227] px-4 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-white/20;
+  }
+}
+
