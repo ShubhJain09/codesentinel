@@ -1,4 +1,4 @@
-# CodeSentinel — Security Before Merge
+# CodeSentinel —- Security Before Merge
 
 **Official Project ID:** PST_PD_143  
 **Track:** Product Development  
