@@ -1,0 +1,423 @@
+/* ================= Code, highlight, review note ================= */
+
+.diff {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 22px;
+  color: var(--syn-plain);
+  background: var(--surface);
+  padding: 6px 0 10px;
+}
+.diff__hunk {
+  padding: 6px 16px 6px 112px;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  background: var(--sunken);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin: 4px 0;
+}
+.diff__hunk:first-child {
+  margin-top: -6px;
+  border-top: 0;
+}
+.diff__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 44px 24px minmax(0, 1fr);
+}
+.diff__no {
+  padding-right: 12px;
+  text-align: right;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  user-select: none;
+}
+.diff__sign {
+  color: var(--ink-3);
+  user-select: none;
+}
+.diff__code {
+  padding-right: 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding-left: 2ch;
+  text-indent: -2ch;
+  font-family: inherit;
+}
+.diff__row--add {
+  background: var(--add-bg);
+}
+.diff__row--add .diff__no,
+.diff__row--add .diff__sign {
+  background: var(--add-gutter);
+}
+/* Line numbers on changed rows sit on a tinted gutter: use the stronger ink for contrast. */
+.diff__row--add .diff__no,
+.diff__row--del .diff__no {
+  color: var(--ink-2);
+}
+.diff__row--add .diff__sign {
+  color: var(--add-sign);
+}
+.diff__row--del {
+  background: var(--del-bg);
+}
+.diff__row--del .diff__no,
+.diff__row--del .diff__sign {
+  background: var(--del-gutter);
+}
+.diff__row--del .diff__sign {
+  color: var(--del-sign);
+}
+
+/* The flagged line: severity edge + the yellow highlight on matched characters only */
+.diff__row.is-flagged {
+  cursor: pointer;
+}
+.diff__row.is-flagged::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--flag);
+  z-index: 1;
+}
+.flag--critical {
+  --flag: var(--critical);
+  --flag-bg: var(--critical-bg);
+}
+.flag--high {
+  --flag: var(--high);
+  --flag-bg: var(--high-bg);
+}
+.flag--medium {
+  --flag: var(--medium);
+  --flag-bg: var(--medium-bg);
+}
+.flag--low {
+  --flag: var(--low);
+  --flag-bg: var(--low-bg);
+}
+.diff__row.is-flagged .diff__no {
+  color: var(--ink-1);
+  font-weight: 700;
+}
+.diff__row.is-pulsed .diff__code {
+  animation: pulse 900ms var(--ease);
+}
+@keyframes pulse {
+  0%,
+  60% {
+    box-shadow: inset 0 0 0 2px var(--focus);
+  }
+}
+
+.hl {
+  color: var(--ink-1);
+  border-radius: 3px;
+  padding: 1px 0;
+  background: linear-gradient(var(--marker), var(--marker)) no-repeat left center / 100% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hl .tok {
+  color: var(--ink-1) !important;
+}
+[data-theme='dark'] .hl {
+  background-image: linear-gradient(rgb(242 207 69 / 0.32), rgb(242 207 69 / 0.32));
+  box-shadow: inset 0 -2px 0 var(--marker);
+}
+.hl--sweep {
+  animation: sweep var(--t-sweep) var(--ease) both;
+}
+@keyframes sweep {
+  from {
+    background-size: 0% 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+/* Syntax (quiet: no red, orange or yellow) */
+.tok--kw {
+  color: var(--syn-kw);
+}
+.tok--str {
+  color: var(--syn-str);
+}
+.tok--num,
+.tok--lit {
+  color: var(--syn-num);
+}
+.tok--com {
+  color: var(--syn-com);
+  font-style: italic;
+}
+.tok--fn {
+  color: var(--syn-fn);
+}
+.tok--prop {
+  color: var(--syn-prop);
+}
+.tok--punc {
+  color: var(--syn-punc);
+}
+
+/* Review note under the flagged line */
+.diff__note-row {
+  padding: 6px 20px 14px 112px;
+  background: var(--surface);
+  font-family: var(--font-sans);
+}
+.note {
+  position: relative;
+  max-width: 720px;
+  padding: 16px 18px 16px;
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  box-shadow:
+    inset 0 0 0 1px var(--line-strong),
+    var(--shadow-2);
+  color: var(--ink-1);
+  line-height: 1.55;
+  white-space: normal;
+}
+.note::before {
+  /* notch pointing up at the flagged line */
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: -7px;
+  width: 12px;
+  height: 12px;
+  background: var(--surface);
+  border-left: 1px solid var(--line-strong);
+  border-top: 1px solid var(--line-strong);
+  transform: rotate(45deg);
+}
+.note__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.note__avatar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--sunken);
+  box-shadow: inset 0 0 0 1px var(--line);
+  flex: none;
+}
+.note__who {
+  flex: 1;
+  font-size: var(--fs-14);
+  color: var(--ink-2);
+}
+.note__who strong {
+  color: var(--ink-1);
+  font-weight: 700;
+}
+.note__title {
+  font-size: var(--fs-18);
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+.note--compact .note__title {
+  font-size: var(--fs-16);
+}
+.note__summary {
+  margin-top: 4px;
+  font-size: var(--fs-15);
+  color: var(--ink-1);
+}
+.note__section {
+  margin-top: 14px;
+  overflow: hidden;
+}
+.note__section--first {
+  margin-top: 2px;
+}
+.note__h {
+  font-size: var(--fs-14);
+  font-weight: 700;
+  color: var(--ink-1);
+  margin-bottom: 4px;
+}
+.note__p {
+  font-size: var(--fs-15);
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+.note--compact .note__p {
+  font-size: var(--fs-14);
+}
+.note__toggle,
+.note__details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  min-height: 32px;
+  padding: 0 10px 0 6px;
+  margin-left: -6px;
+  border-radius: 7px;
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--link);
+  cursor: pointer;
+  list-style: none;
+}
+.note__toggle:hover,
+.note__details summary:hover {
+  background: var(--hover);
+}
+.note__details summary::-webkit-details-marker {
+  display: none;
+}
+.note__caret {
+  transition: transform var(--t-press) var(--ease);
+}
+.note__toggle[aria-expanded='true'] .note__caret,
+.note__details[open] .note__caret {
+  transform: rotate(90deg);
+}
+.note__details {
+  margin-top: 6px;
+  border-top: 1px solid var(--line);
+  padding-top: 4px;
+}
+.note__facts {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 10px;
+  font-size: var(--fs-14);
+}
+.note__facts > div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 12px;
+}
+.note__facts dt {
+  color: var(--ink-3);
+}
+.note__facts dd {
+  margin: 0;
+  color: var(--ink-2);
+}
+.note__limits {
+  display: grid;
+  gap: 6px;
+  padding-left: 18px;
+  list-style: disc;
+  font-size: var(--fs-14);
+  color: var(--ink-2);
+}
+.note__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: var(--fs-14);
+  font-weight: 700;
+  color: var(--ink-1);
+  text-decoration: underline;
+  text-decoration-color: var(--marker);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+.note__open:hover {
+  text-decoration-color: var(--ink-1);
+}
+
+.suggestion {
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 21px;
+}
+.suggestion__cap {
+  padding: 7px 12px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-13);
+  font-weight: 700;
+  color: var(--ink-1);
+  background: var(--sunken);
+  border-bottom: 1px solid var(--line);
+}
+.suggestion__cap span {
+  font-weight: 400;
+  color: var(--ink-3);
+}
+.suggestion__row {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  padding: 2px 12px 2px 0;
+}
+.suggestion__row code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding-left: 2ch;
+  text-indent: -2ch;
+}
+.suggestion__row--del {
+  background: var(--del-bg);
+}
+.suggestion__row--add {
+  background: var(--add-bg);
+}
+.suggestion__sign {
+  text-align: center;
+  font-weight: 700;
+}
+.suggestion__row--del .suggestion__sign {
+  color: var(--del-sign);
+}
+.suggestion__row--add .suggestion__sign {
+  color: var(--add-sign);
+}
+
+.add {
+  color: var(--add-sign);
+  font-weight: 600;
+}
+.del {
+  color: var(--del-sign);
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .note__open {
+    display: flex;
+    width: fit-content;
+  }
+  .note__head {
+    flex-wrap: wrap;
+  }
+  .diff {
+    font-size: 13px;
+    line-height: 21px;
+  }
+  .diff__row {
+    grid-template-columns: 0 40px 20px minmax(0, 1fr);
+  }
+  .diff__row > .diff__no:first-child {
+    visibility: hidden;
+  }
+  .diff__note-row {
+    padding: 6px 12px 14px 12px;
+  }
+  .diff__hunk {
+    padding-left: 64px;
+  }
+}

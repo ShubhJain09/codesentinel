@@ -1,95 +1,194 @@
-# CodeSentinel —- Security Before Merge
+<div align="center">
 
-**Official Project ID:** PST_PD_143  
-**Track:** Product Development  
-**Academic Group:** G385  
-**Assigned Mentor:** Biplove  
-**Authors:** Shubh Abhay Mohta, Harshvardhan Rajpurohit  
-**Status:** Fully Integrated, Tested (22/22 Tests Passing), and Production-Built
+# CodeSentinel
 
----
+**Catch the risky line before it ships.**
+
+A developer-focused pull-request security review prototype.
+
+![CodeSentinel](screenshots/final/home-1440-dark.png)
+
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square)
+![Tests](https://img.shields.io/badge/Tests-17%2F17_passing-22C55E?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Prototype-EAB308?style=flat-square)
+
+</div>
 
 ## Overview
 
-**CodeSentinel** is an automated developer security operations platform designed for pull-request static analysis before code merge. It provides:
-1. **Editorial Public Portal:** Art-directed, responsive landing page with interactive code mockups, vulnerability inspection tables, and complete design-system aesthetics.
-2. **Security Command Center:** Executive dashboard with real posture metrics, Recharts vulnerability distribution charts, and audit activity feeds.
-3. **Authentication & RBAC:** PBKDF2-SHA256 password hashing with 200,000 iterations, 256-bit random session tokens, HttpOnly cookie isolation, and Owner/Admin/User access boundaries.
-4. **Static Analysis Pipeline:** Semgrep CLI integration with pinned OWASP Python security rulesets, temporary workspace sandboxing, and strict path traversal defenses.
-5. **GitHub Pull-Request Ingress:** Raw-buffer HMAC-SHA256 signature verification, delivery UUID deduplication, revision SHA locking, and allowlist enforcement.
-6. **Mobile Companion:** Two-screen React Native / Expo application for alert triage, remediation review, local notification simulation, and persistent acknowledgement via AsyncStorage.
-7. **Comprehensive Documentation Suite:** `docs/MASTER_SPEC.md`, `docs/ARCHITECTURE.md`, `docs/DESIGN_SYSTEM.md`, `docs/SECURITY_MODEL.md`, `docs/PROGRESS.md`, `docs/TEST_RESULTS.md`, and `docs/KNOWN_LIMITATIONS.md`.
+CodeSentinel explores a simpler approach to identifying
+and reviewing security issues before code is merged.
 
----
+Highlight, the latest prototype, focuses on making security
+findings understandable, actionable and easy to investigate
+through a developer-oriented interface.
 
-## Architecture Summary
+This version represents our first-month project milestone.
 
-```
-[GitHub PR Webhook] ──► [HMAC-SHA256 Verifier] ──► [Allowlist Guard] ──► [Queue]
-                                                                           │
-[Developer Browser] ──► [Node.js Daemon 127.0.0.1:4173] ◄──────────────────┤
-         │                       │                                         │
-         ▼                       ▼                                         ▼
-[React 18 SPA] ◄────► [PBKDF2 Auth & Session Store]         [Semgrep CLI in mkdtemp]
-```
+## Project Details
 
----
+| Field | Details |
+| --- | --- |
+| Project ID | PST_PD_143 |
+| Group | G385 |
+| Track | Product Development |
+| Institution | Polaris School of Technology |
+| Mentor | Biplove |
+| Team | Shubh Abhay Mohta, Harshvardhan Rajpurohit |
+| Current Prototype | Highlight |
 
-## Quick Start & Verification
+## Features
 
-### 1. Run Automated Test Suite
-The project uses the built-in Node.js test runner (`node --test`). Zero external test dependencies required:
+- Interactive pull-request security demonstration
+- Five browser-based security detection rules
+- Line-level evidence highlighting
+- Guided security scanning workflow
+- Detailed vulnerability investigation
+- Suggested remediation approaches
+- Finding review decisions
+- Browser-local persistence
+- Responsive light and dark interfaces
+- Distinct outcomes for findings, no matches and failed scans
+
+## Product Preview
+
+### Developer Workspace
+
+![Workspace](screenshots/final/workspace-home-1440.png)
+
+### Vulnerability Investigation
+
+![Finding](screenshots/final/finding-1440-dark.png)
+
+### New Scan
+
+![New Scan](screenshots/final/new-scan-1440.png)
+
+### Scan Report
+
+![Report](screenshots/final/report-1440.png)
+
+## Technology Stack
+
+| Technology | Purpose |
+| --- | --- |
+| React | Application interface |
+| TypeScript | Type-safe application logic |
+| Vite | Development and production builds |
+| Vitest | Automated testing |
+| React Router | Application navigation |
+| Radix UI | Interactive interface primitives |
+| Motion | Interface animations |
+| CSS | Responsive design and styling |
+
+## Getting Started
+
+Clone the repository:
 
 ```bash
+git clone https://github.com/ShubhJain09/codesentinel.git
+cd codesentinel
+```
+
+Install dependencies:
+
+```bash
+npm ci
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open http://localhost:5190 in your browser,
+or use the URL displayed in your terminal.
+
+## Verification
+
+```bash
+npm run typecheck
 npm test
+npm run build
 ```
-*Expected output: 25 tests passing across auth, scanner, webhook, integration, server, and store suites.*
 
-### 2. Build Frontend (React + Vite + Tailwind)
-```bash
-npm run build:frontend
-```
-*Compiles TypeScript, packages Tailwind assets, and outputs production bundles to `frontend/dist/`.*
+Latest local verification:
 
-### 3. Start CodeSentinel Daemon
-```bash
-npm start
-```
-Browse to **http://127.0.0.1:4173**:
-- The server automatically serves the compiled React application.
-- **First-Run Owner Provisioning:**
-  - On a fresh installation, the first account registered via the web interface or `/register` gateway is automatically granted the **System Owner** role.
-  - Alternatively, specify `INITIAL_OWNER_EMAIL` and `INITIAL_OWNER_PASSWORD` in your environment prior to initial launch.
-  - No hardcoded or static default administrative passwords exist in the codebase.
+- TypeScript checks passed
+- 17 automated tests passed
+- Production build completed successfully
+- npm reported zero dependency vulnerabilities
 
-### 4. Run Mobile Companion
-In a separate terminal:
-```bash
-cd mobile
-npm install
-npx expo start
+The tests cover positive and negative rule matches,
+sample pull requests, secret-evidence redaction,
+repeatability, scan failures and highlight precision.
+
+## Project Structure
+
+```text
+codesentinel/
+├── public/
+├── screenshots/
+├── src/
+│   ├── app/
+│   ├── components/
+│   ├── data/
+│   ├── lib/
+│   ├── site/
+│   ├── styles/
+│   └── main.tsx
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+└── vite.config.ts
 ```
-Scan the QR code with Expo Go on iOS/Android to review alerts, acknowledge findings, and simulate local notifications.
+
+## Project Evolution
+
+| Version | Description |
+| --- | --- |
+| [Original prototype](../../tree/prototype-v1) | Earlier implementation with Semgrep, authentication and webhook processing |
+| Highlight | Latest design and usability prototype demonstrated in the first-month milestone |
+
+The original implementation is preserved on the
+`prototype-v1` branch for reference and future integration.
+
+## Current Limitations
+
+Highlight is a working frontend-focused prototype,
+not a production-ready security platform.
+
+- Detection runs locally using five pattern-based rules.
+- Pull requests and repository data are controlled examples.
+- Live GitHub integration and Semgrep are not connected
+  to the Highlight interface yet.
+- Review decisions are stored locally in the browser.
+- Authentication and several workspace sections remain
+  outside the current prototype scope.
+- No configured rule matching does not guarantee secure code.
+
+## Roadmap
+
+- [x] Initial project architecture
+- [x] Earlier static-analysis implementation
+- [x] Developer workspace redesign
+- [x] Interactive security review prototype
+- [x] Automated prototype scanner tests
+- [ ] Integrate Semgrep with Highlight
+- [ ] Connect real GitHub pull requests
+- [ ] Implement backend persistence and authentication
+- [ ] Expand security detection coverage
+- [ ] Continue accessibility and integration testing
 
 ---
 
-## Verified Subsystems & Deliverables
+<div align="center">
 
-| Deliverable | Verification Checkpoint | Status |
-|---|---|---|
-| **Automated Tests** | 25/25 unit and integration tests passing | Verified |
-| **Authentication System** | PBKDF2-SHA256 (200k rounds) + HttpOnly sessions | Verified |
-| **Vite Production Build** | TypeScript + Tailwind build completed in 1.9s | Verified |
-| **Static Semgrep Scanner** | Evaluated on controlled fixture `insecure_example.py` | Verified |
-| **Webhook Security** | Constant-time HMAC-SHA256 with delivery deduplication | Verified |
-| **Mobile Alert Console** | 2-screen React Native companion with AsyncStorage | Verified |
-| **Project Documentation** | Complete suite of 7 comprehensive markdown specs | Verified |
+**CodeSentinel — Security before merge.**
 
----
+Polaris School of Technology · Group G385
 
-## Known Boundaries & Academic Transparency
-
-- CodeSentinel analyzes static Python source code without executing repository build or installation scripts.
-- Webhook reception requires a local tunnel or CI execution (`scripts/scan-pr.js`) since the daemon binds strictly to loopback (`127.0.0.1`).
-- PR comment publishing is disabled by default (`GITHUB_COMMENT_MODE=off`) to prevent unsolicited comments during evaluation.
-- No false claims of "0 false negatives" are made; detection is bounded to the loaded Semgrep rules. See `docs/KNOWN_LIMITATIONS.md` for full details.
+</div>

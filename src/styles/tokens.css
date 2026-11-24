@@ -1,0 +1,195 @@
+/*
+ * Highlight — design tokens.
+ * Primitive values live here once; components use role tokens only.
+ * Light is the default theme; [data-theme='dark'] (or the OS preference) switches.
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --page: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #fbfbfc;
+  --sunken: #f1f3f6;
+  --hover: rgb(21 23 28 / 0.045);
+  --active: rgb(21 23 28 / 0.075);
+
+  /* Lines */
+  --line: #e2e5ea;
+  --line-strong: #cfd4dc;
+  --control: #7e8694;
+
+  /* Ink */
+  --ink-1: #15171c;
+  --ink-2: #454b57;
+  --ink-3: #636a77;
+  --ink-inverse: #ffffff;
+
+  /* Brand: the marker. Reserved for highlight, mark and the primary action. */
+  --marker: #ffdd4a;
+  --marker-hover: #ffd42a;
+  --marker-press: #f5c800;
+  --marker-edge: rgb(0 0 0 / 0.18);
+  --marker-tint: #fff3b8;
+  --on-marker: #15171c;
+
+  --link: #2350e6;
+  --focus: #2350e6;
+
+  /* Severity: text / background (always paired with glyph + label) */
+  --critical: #b42318;
+  --critical-bg: #fef3f2;
+  --high: #b93815;
+  --high-bg: #fff4ed;
+  --medium: #8a4b00;
+  --medium-bg: #fdf5e8;
+  --low: #475467;
+  --low-bg: #f2f4f7;
+  --info: #5d6676;
+
+  /* Outcome + review states */
+  --clean: #2e5e73;
+  --clean-bg: #eef5f8;
+  --failed: #b42318;
+  --failed-bg: #fef3f2;
+  --resolved: #1f7a4d;
+  --resolved-bg: #ecf8f1;
+
+  /* Diff */
+  --add-bg: #eefaf2;
+  --add-gutter: #dcf3e4;
+  --add-sign: #1f7a4d;
+  --del-bg: #fdf1f0;
+  --del-gutter: #f9dedb;
+  --del-sign: #b42318;
+
+  /* Syntax — no red/orange/yellow: those belong to severity and the marker */
+  --syn-plain: #1f2430;
+  --syn-kw: #5b3cc4;
+  --syn-str: #0f7461;
+  --syn-num: #0b6a85;
+  --syn-fn: #1f4fd1;
+  --syn-com: #636b78;
+  --syn-prop: #334155;
+  --syn-punc: #5f6b7c;
+
+  --shadow-1: 0 1px 2px rgb(16 24 40 / 0.06);
+  --shadow-2: 0 1px 2px rgb(16 24 40 / 0.05), 0 8px 24px -10px rgb(16 24 40 / 0.14);
+  --shadow-3: 0 2px 4px rgb(16 24 40 / 0.04), 0 24px 56px -20px rgb(16 24 40 / 0.24);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --page: #111318;
+  --surface: #181b22;
+  --surface-2: #14161c;
+  --sunken: #0e1014;
+  --hover: rgb(236 238 242 / 0.05);
+  --active: rgb(236 238 242 / 0.09);
+
+  --line: #2a2f39;
+  --line-strong: #3a404c;
+  --control: #7d8594;
+
+  --ink-1: #eceef2;
+  --ink-2: #b3b9c5;
+  --ink-3: #8b93a1;
+  --ink-inverse: #111318;
+
+  --marker: #f2cf45;
+  --marker-hover: #f7d85f;
+  --marker-press: #e3bf2f;
+  --marker-edge: rgb(0 0 0 / 0.35);
+  --marker-tint: rgb(242 207 69 / 0.2);
+  --on-marker: #111318;
+
+  --link: #8fa8ff;
+  --focus: #8fa8ff;
+
+  --critical: #ff8a80;
+  --critical-bg: rgb(255 122 112 / 0.12);
+  --high: #ff9a6e;
+  --high-bg: rgb(255 148 102 / 0.12);
+  --medium: #e9b44c;
+  --medium-bg: rgb(233 180 76 / 0.12);
+  --low: #a9b6cc;
+  --low-bg: rgb(169 182 204 / 0.12);
+  --info: #9aa3b2;
+
+  --clean: #9cc6d6;
+  --clean-bg: rgb(156 198 214 / 0.1);
+  --failed: #ff8a80;
+  --failed-bg: rgb(255 122 112 / 0.12);
+  --resolved: #7fcf9f;
+  --resolved-bg: rgb(127 207 159 / 0.12);
+
+  --add-bg: rgb(127 207 159 / 0.07);
+  --add-gutter: rgb(127 207 159 / 0.13);
+  --add-sign: #7fcf9f;
+  --del-bg: rgb(255 138 128 / 0.07);
+  --del-gutter: rgb(255 138 128 / 0.13);
+  --del-sign: #ff8a80;
+
+  --syn-plain: #d7dbe3;
+  --syn-kw: #b49cff;
+  --syn-str: #7fd1bd;
+  --syn-num: #7cc7e0;
+  --syn-fn: #8fb0ff;
+  --syn-com: #8b93a1;
+  --syn-prop: #c3cad6;
+  --syn-punc: #9aa3b2;
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-2: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 28px -12px rgb(0 0 0 / 0.6);
+  --shadow-3: 0 2px 4px rgb(0 0 0 / 0.4), 0 28px 60px -24px rgb(0 0 0 / 0.75);
+}
+
+:root {
+  /* Type */
+  --font-sans: 'Instrument Sans Variable', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono Variable', 'Atkinson Hyperlegible Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-15: 15px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-20: 20px;
+  --fs-28: 28px;
+
+  /* Space (4px base, 8pt rhythm) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s8: 32px;
+  --s10: 40px;
+  --s12: 48px;
+  --s16: 64px;
+
+  --r-control: 8px;
+  --r-panel: 12px;
+  --r-badge: 6px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-press: 120ms;
+  --t-sweep: 420ms;
+  --t-panel: 240ms;
+
+  --sidebar-w: 248px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-press: 0ms;
+    --t-sweep: 0ms;
+    --t-panel: 0ms;
+  }
+}
